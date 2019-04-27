@@ -53,7 +53,7 @@ class Flight
      * @var Transporter
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\AirTransport\Transporter")
-     * @ORM\JoinColumn(name="transporter_id, referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="transporter_id", referencedColumnName="id", nullable=false)
      */
     private $transporter;
 
