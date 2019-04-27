@@ -41,6 +41,10 @@ class CreateAdminUserCommand extends Command
             ));
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $email = $input->getArgument(self::EMAIL_FIELD);

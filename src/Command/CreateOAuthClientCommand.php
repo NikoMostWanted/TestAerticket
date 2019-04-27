@@ -16,6 +16,7 @@ class CreateOAuthClientCommand extends Command
 
     /** @var ClientManagerInterface */
     private $clientManager;
+
     public function __construct(ClientManagerInterface $clientManager)
     {
         $this->clientManager = $clientManager;
@@ -28,6 +29,10 @@ class CreateOAuthClientCommand extends Command
             ->setDescription('Command for creating oAuth client');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $client = $this->clientManager->createClient();
