@@ -8,6 +8,7 @@ use App\Core\Traits\Entity\TUpdatedAtModel;
 use App\Core\Traits\Entity\TUuidModel;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class User
@@ -27,4 +28,20 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->uuid = Uuid::uuid4()->toString();
+        $this->enabled = true;
+    }
+
+    public function setEmail($email)
+    {
+        $email = is_null($email) ? '' : $email;
+        parent::setEmail($email);
+        $this->setUsername($email);
+
+        return $this;
+    }
 }

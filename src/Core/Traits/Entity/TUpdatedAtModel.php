@@ -19,7 +19,7 @@ trait TUpdatedAtModel
      * @var \DateTime
      *
      * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      * @Groups(EGroups::READ)
      */
     protected $updatedAt;

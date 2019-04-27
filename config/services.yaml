@@ -28,5 +28,16 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    FOS\OAuthServerBundle\Storage\OAuthStorage:
+        public: true
+
+
+    FOS\OAuthServerBundle\Controller\TokenController:
+        public: true
+
+    OAuth2\OAuth2:
+        public: true
+        arguments: ['@FOS\OAuthServerBundle\Storage\OAuthStorage']
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
