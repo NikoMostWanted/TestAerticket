@@ -55,6 +55,13 @@ final class FlightController extends AController
      *          required=false,
      *          enum={0:"ASC", 1:"DESC"},
      *      ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          in="header",
+     *          type="string",
+     *          required=false,
+     *          description="OAuth2 token"
+     *     )
      * )
      *
      * @param Request $request
