@@ -6,7 +6,7 @@ namespace App\Core\Exception;
 use Symfony\Component\Form\Form;
 
 /**
- * Interfase IFormWrongRequest
+ * Interface IFormWrongRequest
  *
  * @package App\Core\Exception
  */

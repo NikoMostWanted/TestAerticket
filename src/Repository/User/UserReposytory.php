@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Reposytory\User;
+namespace App\Repository\User;
 
 use App\Core\Abstracts\ARepository;
 use App\Entity\User\User;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * Class UserReposytory
+ * Class UserRepository
  *
- * @package App\Reposytory\User
+ * @package App\Repository\User
  *
  * @method User|null findOneByEmail(string $email)
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserReposytory extends ARepository
+class UserRepository extends ARepository
 {
     public const ALIAS = 'user';
 

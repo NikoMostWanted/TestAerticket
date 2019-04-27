@@ -13,7 +13,7 @@ use FOS\UserBundle\Model\User as BaseUser;
  * Class User
  * @package App\Entity\User
  *
- * @ORM\Entity(repositoryClass="App\Reposytory\User\UserReposytory")
+ * @ORM\Entity(repositoryClass="App\Repository\User\UserRepository")
  */
 class User extends BaseUser
 {
