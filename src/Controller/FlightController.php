@@ -64,7 +64,7 @@ final class FlightController extends AController
      *          required=false
      *     ),
      *     @SWG\Parameter(
-     *          name="order[name]",
+     *          name="order[departureDateTime]",
      *          in="query",
      *          type="string",
      *          required=false,

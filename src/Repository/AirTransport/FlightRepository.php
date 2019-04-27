@@ -35,17 +35,13 @@ class FlightRepository extends ARepository
 
     public function applyFilters(iterable $filters, QueryBuilder $qb, string $alias, string $className) : void
     {
-        $qb
-            ->join($alias . '.departureAirport', 'departureAirport')
-            ->join($alias . '.arrivalAirport', 'arrivalAirport')
-            ->andWhere('departureAirport.iata = :departureIATA')
-            ->andWhere('arrivalAirport.iata = :arrivalIATA')
-            ->andWhere($alias . '.departureDateTime <= :departureDate')
-            ->andWhere($alias . '.arrivalDateTime >= :departureDate')
-            ->setParameter('departureIATA', $filters['departureAirport'])
-            ->setParameter('arrivalIATA', $filters['arrivalAirport'])
-            ->setParameter('departureDate', $filters['departureDate'])
-            ->addOrderBy($alias . '.departureDateTime');
+        $qb->join($alias . '.departureAirport', 'departureAirport')
+            ->join($alias . '.arrivalAirport', 'arrivalAirport');
+
+        $this->eq($qb, 'departureAirport.iata', $filters['departureAirport']);
+        $this->eq($qb, 'arrivalAirport.iata', $filters['arrivalAirport']);
+        $this->lte($qb, $alias . '.departureDateTime', $filters['departureDate']);
+        $this->gte($qb, $alias . '.arrivalDateTime', $filters['departureDate']);
     }
 
 
