@@ -6,6 +6,8 @@ namespace App\Entity\AirTransport;
 use App\Core\Traits\Entity\TCreatedAtModel;
 use App\Core\Traits\Entity\TUpdatedAtModel;
 use App\Core\Traits\Entity\TUuidModel;
+use App\Core\Extra\EGroups;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,7 @@ class Flight
      * @var string
      *
      * @ORM\Column(name="number", type="string", length=255, nullable=false)
+     * @Groups({EGroups::LIST})
      */
     private $number;
 
@@ -38,6 +41,7 @@ class Flight
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\AirTransport\Airport")
      * @ORM\JoinColumn(name="departure_airport_id", referencedColumnName="id", nullable=false)
+     * @Groups({EGroups::LIST})
      */
     private $departureAirport;
 
@@ -46,6 +50,7 @@ class Flight
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\AirTransport\Airport")
      * @ORM\JoinColumn(name="arrival_airport_id", referencedColumnName="id", nullable=false)
+     * @Groups({EGroups::LIST})
      */
     private $arrivalAirport;
 
@@ -54,6 +59,7 @@ class Flight
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\AirTransport\Transporter")
      * @ORM\JoinColumn(name="transporter_id", referencedColumnName="id", nullable=false)
+     * @Groups({EGroups::LIST})
      */
     private $transporter;
 
@@ -61,6 +67,7 @@ class Flight
      * @var \DateTime
      *
      * @ORM\Column(name="departure_date_time", type="datetime", nullable=false)
+     * @Groups({EGroups::LIST})
      */
     private $departureDateTime;
 
@@ -68,6 +75,7 @@ class Flight
      * @var \DateTime
      *
      * @ORM\Column(name="arrival_date_time", type="datetime", nullable=false)
+     * @Groups({EGroups::LIST})
      */
     private $arrivalDateTime;
 
@@ -76,6 +84,7 @@ class Flight
      * @var integer
      *
      * @ORM\Column(name="duration", type="integer", nullable=false)
+     * @Groups({EGroups::LIST})
      */
     private $duration;
 

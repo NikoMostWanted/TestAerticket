@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Core\Extra\EGroups;
 use App\Form\SearchFlightType;
 use App\Repository\AirTransport\FlightRepository;
 use Swagger\Annotations as SWG;
@@ -95,7 +96,7 @@ final class FlightController extends AController
 
         $collection = $this->getCollectionByFilters($form->getData(), $flightRepository);
 
-        return $this->response($collection);
+        return $this->response($collection, EGroups::LIST);
 
     }
 }

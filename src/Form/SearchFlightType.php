@@ -3,11 +3,16 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Core\Traits\Aware\TEntityManagerAware;
+use App\Entity\AirTransport\Airport;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -19,6 +24,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  */
 class SearchFlightType extends AbstractType
 {
+    use TEntityManagerAware;
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -69,6 +76,10 @@ class SearchFlightType extends AbstractType
                     ]
                 ])
             )
+            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
+                $this->isExistAirport('departureAirport', $event);
+                $this->isExistAirport('arrivalAirport', $event);
+            })
         ;
     }
 
@@ -77,5 +88,17 @@ class SearchFlightType extends AbstractType
         parent::configureOptions($resolver);
         $resolver->setDefaults([
         ]);
+    }
+
+    public function isExistAirport(string $fieldName, FormEvent $event): void
+    {
+        $value = $event->getData()['filters'][$fieldName];
+        $form = $event->getForm();
+        $airportRepository = $this->getEm()->getRepository(Airport::class);
+
+        if (!$airportRepository->findOneBy(['iata' => $value])) {
+            $error = new FormError('Airport ' . $value . 'not exist in data-base');
+            $form->get('filters')->get($fieldName)->addError($error);
+        }
     }
 }

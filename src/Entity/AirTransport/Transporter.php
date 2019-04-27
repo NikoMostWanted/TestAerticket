@@ -6,6 +6,8 @@ namespace App\Entity\AirTransport;
 use App\Core\Traits\Entity\TCreatedAtModel;
 use App\Core\Traits\Entity\TUpdatedAtModel;
 use App\Core\Traits\Entity\TUuidModel;
+use App\Core\Extra\EGroups;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,7 @@ class Transporter
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=2, nullable=false)
+     * @Groups({EGroups::LIST})
      */
     private $code;
 
@@ -37,6 +40,7 @@ class Transporter
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @Groups({EGroups::LIST})
      */
     private $name;
 
