@@ -104,7 +104,7 @@ abstract class ARepository extends ServiceEntityRepository implements IRepositor
     public function applyOrder(array $order, QueryBuilder $qb, string $alias, string $className): void
     {
         $metadata = $this->getEntityManager()->getClassMetadata($className);
-        $columns = $metadata->getColumnNames();
+        $columns = $metadata->getFieldNames();
         $relationColumns = $metadata->getAssociationMappings();
         foreach ($order as $field => $value) {
             $column = $alias . '.' . $field;

@@ -50,7 +50,7 @@ class SearchFlightType extends AbstractType
                 'by_reference' => false,
                 'allow_extra_fields' => true,
             ])
-                ->add('arrivalDateTime', TextType::class, [
+                ->add('departureDateTime', TextType::class, [
                 ])
             )
             ->add($builder->create('pagination', FormType::class, [
