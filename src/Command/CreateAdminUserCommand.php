@@ -15,6 +15,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class CreateAdminUserCommand extends Command
 {
     const NAME = 'user:create-admin';
+    const EMAIL_FIELD = 'email';
+    const PASSWORD_FIELD = 'password';
 
     /** @var UserManagerInterface */
     private $userManager;
@@ -29,20 +31,20 @@ class CreateAdminUserCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName(self::NAME)
             ->setDescription('Command for creating admin user')
             ->setDefinition(array(
-                new InputArgument('email', InputArgument::REQUIRED, 'The email'),
-                new InputArgument('password', InputArgument::REQUIRED, 'The password')
+                new InputArgument(self::EMAIL_FIELD, InputArgument::REQUIRED, 'The email'),
+                new InputArgument(self::PASSWORD_FIELD, InputArgument::REQUIRED, 'The password')
             ));
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $email = $input->getArgument('email');
-        $password = $input->getArgument('password');
+        $email = $input->getArgument(self::EMAIL_FIELD);
+        $password = $input->getArgument(self::PASSWORD_FIELD);
         $user = $this->userManager->createUser();
 
         $user->setEmail($email)

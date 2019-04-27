@@ -90,6 +90,10 @@ class SearchFlightType extends AbstractType
         ]);
     }
 
+    /**
+     * @param string $fieldName
+     * @param FormEvent $event
+     */
     public function isExistAirport(string $fieldName, FormEvent $event): void
     {
         $value = $event->getData()['filters'][$fieldName];

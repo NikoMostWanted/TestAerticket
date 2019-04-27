@@ -22,16 +22,13 @@ class CreateOAuthClientCommand extends Command
         parent::__construct();
     }
 
-    /**
-     *
-     */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName(self::NAME)
             ->setDescription('Command for creating oAuth client');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $client = $this->clientManager->createClient();
         $client->setAllowedGrantTypes([

@@ -44,16 +44,26 @@ class Airport
      */
     private $name;
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getIata(): string
     {
         return $this->iata;
     }
 
+    /**
+     * @param string $iata
+     * @return Airport
+     */
     public function setIata(string $iata): self
     {
         $this->iata = $iata;
@@ -61,11 +71,18 @@ class Airport
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return Airport
+     */
     public function setName(string $name): self
     {
         $this->name = $name;

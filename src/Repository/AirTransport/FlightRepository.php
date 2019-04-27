@@ -33,6 +33,13 @@ class FlightRepository extends ARepository
         parent::__construct($registry, Flight::class);
     }
 
+    /**
+     * @param iterable $filters
+     * @param QueryBuilder $qb
+     * @param string $alias
+     * @param string $className
+     * @throws \Exception
+     */
     public function applyFilters(iterable $filters, QueryBuilder $qb, string $alias, string $className) : void
     {
         $qb->join($alias . '.departureAirport', 'departureAirport')

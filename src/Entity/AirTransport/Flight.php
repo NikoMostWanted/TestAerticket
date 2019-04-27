@@ -88,16 +88,26 @@ class Flight
      */
     private $duration;
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getNumber(): string
     {
         return $this->number;
     }
 
+    /**
+     * @param string $number
+     * @return Flight
+     */
     public function setNumber(string $number): self
     {
         $this->number = $number;
@@ -105,11 +115,18 @@ class Flight
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface
+     */
     public function getDepartureDateTime(): \DateTimeInterface
     {
         return $this->departureDateTime;
     }
 
+    /**
+     * @param \DateTimeInterface $departureDateTime
+     * @return Flight
+     */
     public function setDepartureDateTime(\DateTimeInterface $departureDateTime): self
     {
         $this->departureDateTime = $departureDateTime;
@@ -117,11 +134,18 @@ class Flight
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface
+     */
     public function getArrivalDateTime(): \DateTimeInterface
     {
         return $this->arrivalDateTime;
     }
 
+    /**
+     * @param \DateTimeInterface $arrivalDateTime
+     * @return Flight
+     */
     public function setArrivalDateTime(\DateTimeInterface $arrivalDateTime): self
     {
         $this->arrivalDateTime = $arrivalDateTime;
@@ -129,11 +153,18 @@ class Flight
         return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getDuration(): int
     {
         return $this->duration;
     }
 
+    /**
+     * @param int $duration
+     * @return Flight
+     */
     public function setDuration(int $duration): self
     {
         $this->duration = $duration;
@@ -141,11 +172,18 @@ class Flight
         return $this;
     }
 
+    /**
+     * @return Airport
+     */
     public function getDepartureAirport(): Airport
     {
         return $this->departureAirport;
     }
 
+    /**
+     * @param Airport $departureAirport
+     * @return Flight
+     */
     public function setDepartureAirport(Airport $departureAirport): self
     {
         $this->departureAirport = $departureAirport;
@@ -153,11 +191,18 @@ class Flight
         return $this;
     }
 
+    /**
+     * @return Transporter
+     */
     public function getTransporter(): Transporter
     {
         return $this->transporter;
     }
 
+    /**
+     * @param Transporter $transporter
+     * @return Flight
+     */
     public function setTransporter(Transporter $transporter): self
     {
         $this->transporter = $transporter;
@@ -165,11 +210,18 @@ class Flight
         return $this;
     }
 
+    /**
+     * @return Airport
+     */
     public function getArrivalAirport(): Airport
     {
         return $this->arrivalAirport;
     }
 
+    /**
+     * @param Airport $arrivalAirport
+     * @return Flight
+     */
     public function setArrivalAirport(Airport $arrivalAirport): self
     {
         $this->arrivalAirport = $arrivalAirport;

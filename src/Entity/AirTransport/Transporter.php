@@ -44,16 +44,26 @@ class Transporter
      */
     private $name;
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getCode(): string
     {
         return $this->code;
     }
 
+    /**
+     * @param string $code
+     * @return Transporter
+     */
     public function setCode(string $code): self
     {
         $this->code = $code;
@@ -61,11 +71,18 @@ class Transporter
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return Transporter
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
