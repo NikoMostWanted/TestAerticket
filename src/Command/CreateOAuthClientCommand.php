@@ -12,7 +12,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CreateOAuthClientCommand extends Command
 {
-    const NAME = 'oauth:create-client';
+    public const NAME = 'oauth:create-client';
 
     /** @var ClientManagerInterface */
     private $clientManager;

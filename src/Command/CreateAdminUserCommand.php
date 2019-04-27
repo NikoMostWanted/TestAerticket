@@ -14,9 +14,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CreateAdminUserCommand extends Command
 {
-    const NAME = 'user:create-admin';
-    const EMAIL_FIELD = 'email';
-    const PASSWORD_FIELD = 'password';
+    public const NAME = 'user:create-admin';
+    public const EMAIL_FIELD = 'email';
+    public const PASSWORD_FIELD = 'password';
 
     /** @var UserManagerInterface */
     private $userManager;

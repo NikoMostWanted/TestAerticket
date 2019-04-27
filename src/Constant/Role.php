@@ -7,6 +7,6 @@ use App\Entity\User\User;
 
 class Role extends BaseConstant
 {
-    const ROLE_USER = User::ROLE_DEFAULT;
-    const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_USER = User::ROLE_DEFAULT;
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
 }
