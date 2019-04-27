@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Transporter
  * @package App\Entity\AirTransport
- *
+ * @ORM\Entity
  */
 class Transporter
 {
@@ -39,4 +39,33 @@ class Transporter
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 }
