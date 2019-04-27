@@ -40,12 +40,12 @@ class Transporter
      */
     private $name;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getCode(): ?string
+    public function getCode(): string
     {
         return $this->code;
     }
@@ -57,7 +57,7 @@ class Transporter
         return $this;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }

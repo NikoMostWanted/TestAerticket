@@ -50,6 +50,14 @@ class Flight
     private $arrivalAirport;
 
     /**
+     * @var Transporter
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\AirTransport\Transporter")
+     * @ORM\JoinColumn(name="transporter_id, referencedColumnName="id", nullable=false)
+     */
+    private $transporter;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="departure_date_time", type="datetime", nullable=false)
@@ -71,12 +79,12 @@ class Flight
      */
     private $duration;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getNumber(): ?string
+    public function getNumber(): string
     {
         return $this->number;
     }
@@ -88,7 +96,7 @@ class Flight
         return $this;
     }
 
-    public function getDepartureDateTime(): ?\DateTimeInterface
+    public function getDepartureDateTime(): \DateTimeInterface
     {
         return $this->departureDateTime;
     }
@@ -100,7 +108,7 @@ class Flight
         return $this;
     }
 
-    public function getArrivalDateTime(): ?\DateTimeInterface
+    public function getArrivalDateTime(): \DateTimeInterface
     {
         return $this->arrivalDateTime;
     }
@@ -112,7 +120,7 @@ class Flight
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration(): int
     {
         return $this->duration;
     }
@@ -124,24 +132,36 @@ class Flight
         return $this;
     }
 
-    public function getDepartureAirport(): ?Airport
+    public function getDepartureAirport(): Airport
     {
         return $this->departureAirport;
     }
 
-    public function setDepartureAirport(?Airport $departureAirport): self
+    public function setDepartureAirport(Airport $departureAirport): self
     {
         $this->departureAirport = $departureAirport;
 
         return $this;
     }
 
-    public function getArrivalAirport(): ?Airport
+    public function getTransporter(): Transporter
+    {
+        return $this->transporter;
+    }
+
+    public function setTransporter(Transporter $transporter): self
+    {
+        $this->transporter = $transporter;
+
+        return $this;
+    }
+
+    public function getArrivalAirport(): Airport
     {
         return $this->arrivalAirport;
     }
 
-    public function setArrivalAirport(?Airport $arrivalAirport): self
+    public function setArrivalAirport(Airport $arrivalAirport): self
     {
         $this->arrivalAirport = $arrivalAirport;
 

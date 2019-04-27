@@ -28,7 +28,7 @@ final class Version20190427082523 extends AbstractMigration
         $this->addSql('CREATE TABLE refresh_token (id INT AUTO_INCREMENT NOT NULL, client_id INT NOT NULL, user_id INT DEFAULT NULL, token VARCHAR(255) NOT NULL, expires_at INT DEFAULT NULL, scope VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_C74F21955F37A13B (token), INDEX IDX_C74F219519EB6921 (client_id), INDEX IDX_C74F2195A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE auth_code (id INT AUTO_INCREMENT NOT NULL, client_id INT NOT NULL, user_id INT DEFAULT NULL, token VARCHAR(255) NOT NULL, redirect_uri LONGTEXT NOT NULL, expires_at INT DEFAULT NULL, scope VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_5933D02C5F37A13B (token), INDEX IDX_5933D02C19EB6921 (client_id), INDEX IDX_5933D02CA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE transporter (id INT AUTO_INCREMENT NOT NULL, code VARCHAR(2) NOT NULL, name VARCHAR(255) NOT NULL, uuid VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, UNIQUE INDEX UNIQ_A036E2D4D17F50A6 (uuid), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE flight (id INT AUTO_INCREMENT NOT NULL, departure_airport_id INT NOT NULL, arrival_airport_id INT NOT NULL, number VARCHAR(255) NOT NULL, departure_date_time DATETIME NOT NULL, arrival_date_time DATETIME NOT NULL, duration INT NOT NULL, uuid VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, UNIQUE INDEX UNIQ_C257E60ED17F50A6 (uuid), INDEX IDX_C257E60EF631AB5C (departure_airport_id), INDEX IDX_C257E60E7F43E343 (arrival_airport_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE flight (id INT AUTO_INCREMENT NOT NULL, departure_airport_id INT NOT NULL, arrival_airport_id INT NOT NULL, transporter_id INT NOT NULL, number VARCHAR(255) NOT NULL, departure_date_time DATETIME NOT NULL, arrival_date_time DATETIME NOT NULL, duration INT NOT NULL, uuid VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, UNIQUE INDEX UNIQ_C257E60ED17F50A6 (uuid), INDEX IDX_C257E60EF631AB5C (departure_airport_id), INDEX IDX_C257E60E7F43E343 (arrival_airport_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE airport (id INT AUTO_INCREMENT NOT NULL, iata VARCHAR(3) NOT NULL, name VARCHAR(255) NOT NULL, uuid VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, UNIQUE INDEX UNIQ_7E91F7C2D17F50A6 (uuid), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE access_token ADD CONSTRAINT FK_B6A2DD6819EB6921 FOREIGN KEY (client_id) REFERENCES client (id)');
         $this->addSql('ALTER TABLE access_token ADD CONSTRAINT FK_B6A2DD68A76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
@@ -38,6 +38,7 @@ final class Version20190427082523 extends AbstractMigration
         $this->addSql('ALTER TABLE auth_code ADD CONSTRAINT FK_5933D02CA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE flight ADD CONSTRAINT FK_C257E60EF631AB5C FOREIGN KEY (departure_airport_id) REFERENCES airport (id)');
         $this->addSql('ALTER TABLE flight ADD CONSTRAINT FK_C257E60E7F43E343 FOREIGN KEY (arrival_airport_id) REFERENCES airport (id)');
+        $this->addSql('ALTER TABLE flight ADD CONSTRAINT FK_C257E60EF631AB5H FOREIGN KEY (transporter_id) REFERENCES transporter (id)');
     }
 
     public function down(Schema $schema) : void
@@ -53,6 +54,7 @@ final class Version20190427082523 extends AbstractMigration
         $this->addSql('ALTER TABLE auth_code DROP FOREIGN KEY FK_5933D02CA76ED395');
         $this->addSql('ALTER TABLE flight DROP FOREIGN KEY FK_C257E60EF631AB5C');
         $this->addSql('ALTER TABLE flight DROP FOREIGN KEY FK_C257E60E7F43E343');
+        $this->addSql('ALTER TABLE flight DROP FOREIGN KEY FK_C257E60EF631AB5H');
         $this->addSql('DROP TABLE access_token');
         $this->addSql('DROP TABLE client');
         $this->addSql('DROP TABLE user');

@@ -5,8 +5,10 @@ namespace App\Controller;
 
 use App\Core\Exception\EFormWrongRequest;
 use App\Core\Exception\ExceptionFactory;
+use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class AController
@@ -15,6 +17,30 @@ use Symfony\Component\Form\Form;
  */
 class AController extends AbstractFOSRestController
 {
+    /**
+     * @param $data
+     * @param array|string|null $groups
+     * @param array $headers
+     * @param int $statusCode
+     *
+     * @return Response
+     */
+    public function response($data, $groups = null, array $headers = [], int $statusCode = 200): Response
+    {
+        if (\is_string($groups)) {
+            $groups = [$groups];
+        }
+        $view = $this->view($data, $statusCode, $headers);
+
+        if($groups && \count($groups)){
+            $context = new Context();
+            $context->setGroups($groups);
+            $view->setContext($context);
+        }
+
+        return $this->handleView($view);
+    }
+
     /**
      * @param string $formClass
      * @param array $data
@@ -28,7 +54,7 @@ class AController extends AbstractFOSRestController
         /** @var Form $form */
         $form = $this->createForm($formClass, $object);
         $form->submit($data);
-        if ($form->isValid()) {
+        if (!$form->isValid()) {
             throw ExceptionFactory::createEWrongRequestData($form);
         }
 

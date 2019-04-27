@@ -40,12 +40,12 @@ class Airport
      */
     private $name;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getIata(): ?string
+    public function getIata(): string
     {
         return $this->iata;
     }
@@ -57,7 +57,7 @@ class Airport
         return $this;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
