@@ -24,6 +24,8 @@ final class Version20190427090709 extends AbstractMigration
         $this->addToFlightTable('34535', 400, $this->findAirportByIATA('IAA'), $this->findAirportByIATA('IAB'), $this->findTransporterByCode('W6'), '2019-04-20 00:00:00', '2019-04-21 00:00:00');
         $this->addToFlightTable('34537', 500, $this->findAirportByIATA('IAB'), $this->findAirportByIATA('IAD'), $this->findTransporterByCode('PS'), '2019-04-20 00:00:00', '2019-04-21 00:00:00');
         $this->addToFlightTable('34539', 200, $this->findAirportByIATA('IAO'), $this->findAirportByIATA('IAN'), $this->findTransporterByCode('KG'), '2019-04-20 00:00:00', '2019-04-21 00:00:00');
+        $this->addToFlightTable('34239', 100, $this->findAirportByIATA('IAN'), $this->findAirportByIATA('IAG'), $this->findTransporterByCode('W6'), '2019-04-20 00:00:00', '2019-04-21 00:00:00');
+        $this->addToFlightTable('54239', 100, $this->findAirportByIATA('IAM'), $this->findAirportByIATA('IAD'), $this->findTransporterByCode('RS'), '2019-04-20 00:00:00', '2019-04-21 00:00:00');
     }
 
     public function down(Schema $schema) : void

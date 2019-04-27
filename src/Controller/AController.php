@@ -4,12 +4,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Core\Abstracts\ARepository;
-use App\Core\Exception\EFormWrongRequest;
-use App\Core\Exception\ExceptionFactory;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
