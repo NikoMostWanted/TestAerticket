@@ -5,7 +5,7 @@ namespace App\Repository\AirTransport;
 
 use App\Core\Abstracts\ARepository;
 use App\Entity\AirTransport\Flight;
-use Doctrine\ORM\Internal\Hydration\IterableResult;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -33,21 +33,20 @@ class FlightRepository extends ARepository
         parent::__construct($registry, Flight::class);
     }
 
-    public function getFlightDataIterable(string $departureAirportIATA, string $arrivalAirportIATA, string $departureDate): IterableResult
+    public function applyFilters(iterable $filters, QueryBuilder $qb, string $alias, string $className) : void
     {
-        $alias = $this->getAlias();
-
-        return $this->createQueryBuilder($alias)
+        $qb
             ->join($alias . '.departureAirport', 'departureAirport')
             ->join($alias . '.arrivalAirport', 'arrivalAirport')
             ->andWhere('departureAirport.iata = :departureIATA')
             ->andWhere('arrivalAirport.iata = :arrivalIATA')
             ->andWhere($alias . '.departureDateTime <= :departureDate')
             ->andWhere($alias . '.arrivalDateTime >= :departureDate')
-            ->setParameter('departureIATA', $departureAirportIATA)
-            ->setParameter('arrivalIATA', $arrivalAirportIATA)
-            ->setParameter('departureDate', $departureDate)
-            ->getQuery()
-            ->iterate();
+            ->setParameter('departureIATA', $filters['departureAirport'])
+            ->setParameter('arrivalIATA', $filters['arrivalAirport'])
+            ->setParameter('departureDate', $filters['departureDate'])
+            ->addOrderBy($alias . '.departureDateTime');
     }
+
+
 }

@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Form\RequestFilter\SearchRequestFilter;
-use App\Form\SearchType;
-use FOS\RestBundle\Controller\Annotations as Rest;
+use App\Form\SearchFlightType;
+use App\Repository\AirTransport\FlightRepository;
+use Swagger\Annotations as SWG;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  * Class FlightController
@@ -19,7 +19,6 @@ use Swagger\Annotations as SWG;
  * @Route("flight")
  * @SWG\Tag(name="Flight")
  */
-
 final class FlightController extends AController
 {
     /**
@@ -31,10 +30,26 @@ final class FlightController extends AController
      *          description="OK"
      *     ),
      *     @SWG\Parameter(
-     *          name="filter[name]",
+     *          name="filters[departureAirport]",
      *          in="query",
      *          type="string",
-     *          required=false
+     *          required=true,
+     *          default="departureAirport"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="filters[arrivalAirport]",
+     *          in="query",
+     *          type="string",
+     *          required=true,
+     *          default="arrivalAirport"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="filters[departureDate]",
+     *          in="query",
+     *          type="string",
+     *          format="date",
+     *          required=true,
+     *          default="departureDate"
      *     ),
      *     @SWG\Parameter(
      *          name="pagination[limit]",
@@ -48,11 +63,12 @@ final class FlightController extends AController
      *          type="string",
      *          required=false
      *     ),
-     *      @SWG\Parameter(
+     *     @SWG\Parameter(
      *          name="order[name]",
      *          in="query",
      *          type="string",
      *          required=false,
+     *          default="DESC",
      *          enum={0:"ASC", 1:"DESC"},
      *      ),
      *     @SWG\Parameter(
@@ -65,14 +81,21 @@ final class FlightController extends AController
      * )
      *
      * @param Request $request
+     * @param FlightRepository $flightRepository
      * @return Response
-     * @throws \App\Core\Exception\EFormWrongRequest
+     * @throws \Exception
      */
-    public function getCollection(Request $request): Response
+    public function getCollection(Request $request, FlightRepository $flightRepository): Response
     {
-        /** @var SearchRequestFilter $searchRequest */
-        $searchRequest = $this->validateRequestData(SearchType::class, $request->query->all())->getData();
+        /** @var Form $form */
+        $form = $this->validateRequestData(SearchFlightType::class, $request->query->all());
+        if (!$form->isValid()) {
+            return $this->response($form);
+        }
 
-        return $this->response(['ok']);
+        $collection = $this->getCollectionByFilters($form->getData(), $flightRepository);
+
+        return $this->response($collection);
+
     }
 }

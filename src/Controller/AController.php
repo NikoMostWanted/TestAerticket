@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Core\Abstracts\ARepository;
 use App\Core\Exception\EFormWrongRequest;
 use App\Core\Exception\ExceptionFactory;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -47,17 +49,40 @@ class AController extends AbstractFOSRestController
      * @param null $object
      *
      * @return Form
-     * @throws EFormWrongRequest
      */
     protected function validateRequestData(string $formClass, array $data, $object = null): Form
     {
         /** @var Form $form */
         $form = $this->createForm($formClass, $object);
         $form->submit($data);
-        if (!$form->isValid()) {
-            throw ExceptionFactory::createEWrongRequestData($form);
-        }
 
         return $form;
+    }
+
+    /**
+     * @param $data
+     * @param ARepository $repository
+     *
+     * @return array
+     * @throws \Exception
+     */
+    protected function getCollectionByFilters($data, ARepository $repository): array
+    {
+        $filters = $data['filters'];
+        $order = $data['order'];
+        $pagination = $data['pagination'];
+
+        $pager = $repository->filterBy($filters, $order, $pagination);
+
+        return [
+            'items' => $pager->getItems(),
+            'pagination' => [
+                'page' => $pager->getCurrentPageNumber(),
+                'totalPages' => 1 + (int)($pager->getTotalItemCount() / $pager->getItemNumberPerPage()),
+                'totalItems' => $pager->getTotalItemCount(),
+                'limit' => $pager->getItemNumberPerPage(),
+                'count' => \count($pager->getItems()),
+            ]
+        ];
     }
 }

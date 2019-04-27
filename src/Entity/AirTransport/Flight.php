@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Flight
  * @package App\Entity\AirTransport
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\AirTransport\FlightRepository")
  */
 class Flight
 {

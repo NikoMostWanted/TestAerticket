@@ -18,6 +18,8 @@ framework:
 
     form: true
 
+    csrf_protection: false
+
     translator: ~
     templating:
         engines: ['twig']
