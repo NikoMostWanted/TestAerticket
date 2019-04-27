@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -30,7 +30,9 @@ class SearchFlightType extends AbstractType
                 'by_reference' => false,
                 'allow_extra_fields' => true
             ])
-                ->add('departureDate', TextType::class, [
+                ->add('departureDate', DateTimeType::class, [
+                    'format' => 'yyyy-MM-dd',
+                    'widget' => 'single_text',
                     'constraints' => [
                         new NotBlank(),
                     ]
